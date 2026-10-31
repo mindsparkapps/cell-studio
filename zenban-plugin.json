@@ -1,0 +1,8 @@
+{
+  "name": "Arquitectura Celular",
+  "icon": "🧬",
+  "description": "Explorador 3D de células: vegetal, animal, glóbulo blanco, neurona y ADN",
+  "entry": "index.html",
+  "width": 960,
+  "height": 720
+}

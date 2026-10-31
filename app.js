@@ -157,8 +157,17 @@ function renderStructs(c) {
     const show = el.querySelector('[data-show]'); if (show) show.onclick = show.onkeydown = e => { if (e.type === 'keydown' && e.key !== 'Enter') return; focusOn(c.structs[el.dataset.i][3]); };
   });
 }
+/* ---------- plugin de ZenBan: guarda la célula y la pestaña elegidas en el objeto ---------- */
+const IN_ZENBAN = !!(window.ZenBanPlugin && ZenBanPlugin.inZenBan);
+let curTab = 'structures', pluginReady = false, readOnly = false;
+function pluginSave() {
+  if (!IN_ZENBAN || readOnly || !pluginReady || !want) return;
+  ZenBanPlugin.setState({ cell: want.key, tab: curTab }); ZenBanPlugin.setTitle(want.name);
+}
 function tab(name) {
+  curTab = name;
   ['structures', 'functions', 'details'].forEach(t => { $('t-' + t).setAttribute('aria-selected', t === name); $('p-' + t).hidden = t !== name; });
+  pluginSave();
 }
 ['structures', 'functions', 'details'].forEach(t => $('t-' + t).onclick = () => tab(t));
 document.querySelectorAll('nav a[data-tab]').forEach(a => a.onclick = () => tab(a.dataset.tab));
@@ -172,7 +181,7 @@ async function select(k) {
   renderStructs(c);
   $('p-functions').innerHTML = c.fns.map(([a, b]) => `<div class="fn"><b>${a}</b><span>${b}</span></div>`).join('');
   $('p-details').innerHTML = `<p class="know">${c.know}</p><div class="chips">${c.chips.map(x => `<span>${x}</span>`).join('')}</div><p class="note">Los modelos son ilustraciones didácticas, sin escala real.</p>`;
-  buildCallouts(c);
+  buildCallouts(c); pluginSave();
   if (!models[k]) { $('loadName').textContent = c.name; $('barFill').style.width = '0%'; $('pct').textContent = '0%'; $('loading').hidden = false; }
   let h; try { h = await load(c); } catch { $('loadName').textContent = `${c.name}: no se pudo cargar`; return; }
   if (want !== c) return; // another cell was picked meanwhile
@@ -246,7 +255,11 @@ function setMode(f) {
   if (current) current.rotation.y = 0; resetView();
 }
 $('m3').onclick = () => setMode(false); $('m2').onclick = () => setMode(true);
-$('fs').onclick = () => document.fullscreenElement ? document.exitFullscreen() : stageEl.requestFullscreen?.();
+let zbMax = false; // dentro de ZenBan la pantalla completa maximiza la ventana del plugin
+$('fs').onclick = () => {
+  if (IN_ZENBAN) { zbMax = !zbMax; zbMax ? ZenBanPlugin.maximize() : ZenBanPlugin.exitMaximize(); return; }
+  document.fullscreenElement ? document.exitFullscreen() : stageEl.requestFullscreen?.();
+};
 function focusOn(a) {
   if (!current || !a) return;
   setMode(false); spin = false;
@@ -301,4 +314,18 @@ if (location.search.includes('pick')) renderer.domElement.addEventListener('clic
   if (hit) { const p = current.worldToLocal(hit.point.clone()); window.__picks = [...(window.__picks || []), p.toArray().map(v => +v.toFixed(3))]; console.log('pick', window.__picks.at(-1)); }
 });
 
-select('animal').finally(async () => { for (const c of CELLS) await load(c).catch(() => {}); });
+let started = false;
+function start(k, t) {
+  if (started) return; started = true;
+  select(k).finally(async () => { for (const c of CELLS) await load(c).catch(() => {}); });
+  if (t) tab(t);
+}
+if (IN_ZENBAN) {
+  ZenBanPlugin.onInit(({ state, readOnly: ro }) => {
+    readOnly = !!ro;
+    const k = CELLS.some(c => c.key === state?.cell) ? state.cell : 'animal';
+    start(k, ['structures', 'functions', 'details'].includes(state?.tab) ? state.tab : null);
+    pluginReady = true;
+  });
+  setTimeout(() => { start('animal'); pluginReady = true; }, 5000); // por si ZenBan no envía el estado
+} else start('animal');
