@@ -1,0 +1,62 @@
+[
+  {
+    "file": "models/plant-cell.glb",
+    "url": "https://media.prettysites.io/cell-studio/models/plant-cell.glb",
+    "bytes": 3861068,
+    "sha256": "d249a063f67f134c99d995ee32adaf7cae4d65216df1c8b5797f9c2b99a7a0df"
+  },
+  {
+    "file": "models/animal-cell.glb",
+    "url": "https://media.prettysites.io/cell-studio/models/animal-cell.glb",
+    "bytes": 4043736,
+    "sha256": "441486d8c827591c635e5e4bc02839eaf8a29eb533b46c268b82787914f87f4e"
+  },
+  {
+    "file": "models/white-blood-cell.glb",
+    "url": "https://media.prettysites.io/cell-studio/models/white-blood-cell.glb",
+    "bytes": 3694692,
+    "sha256": "473423a2e0fb3c9b5925fa60cb731019a335a376a7ea5ef9e7076e4564e38e76"
+  },
+  {
+    "file": "models/neuron.glb",
+    "url": "https://media.prettysites.io/cell-studio/models/neuron.glb",
+    "bytes": 5587932,
+    "sha256": "75fd63108be66542b968b88cff353fe600933cd28770ae3d6838aebfc0683f5b"
+  },
+  {
+    "file": "models/dna.glb",
+    "url": "https://media.prettysites.io/cell-studio/models/dna.glb",
+    "bytes": 8094180,
+    "sha256": "3c7f8a63aed9c7daa51acbd36ec915fe240038c091a19589482a8ae179b5e8c1"
+  },
+  {
+    "file": "draco/draco_decoder.js",
+    "url": "https://media.prettysites.io/cell-studio/draco/draco_decoder.js",
+    "bytes": 512465,
+    "sha256": "8625489da79a805f4f2a7d511c3e52d8b4085608a9d2a4d5f4f9de5db0aea04f"
+  },
+  {
+    "file": "draco/draco_wasm_wrapper.js",
+    "url": "https://media.prettysites.io/cell-studio/draco/draco_wasm_wrapper.js",
+    "bytes": 58456,
+    "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6"
+  },
+  {
+    "file": "draco/draco_decoder.wasm",
+    "url": "https://media.prettysites.io/cell-studio/draco/draco_decoder.wasm",
+    "bytes": 192420,
+    "sha256": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac"
+  },
+  {
+    "file": "licenses/Three-LICENSE.txt",
+    "url": "https://media.prettysites.io/cell-studio/licenses/Three-LICENSE.txt",
+    "bytes": 1081,
+    "sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454"
+  },
+  {
+    "file": "licenses/Draco-LICENSE.txt",
+    "url": "https://media.prettysites.io/cell-studio/licenses/Draco-LICENSE.txt",
+    "bytes": 13898,
+    "sha256": "d3709b0fb4b8a94bbb1d02b8a2e484f258b0d9c5c5a01f940391f3fe662cd1a4"
+  }
+]

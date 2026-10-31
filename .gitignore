@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.claude/
+# respaldos descargables con `npm run assets` (verificados por SHA-256 en assets.json)
+models/
+draco/
+licenses/
